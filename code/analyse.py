@@ -83,7 +83,10 @@ def setting_key(r) -> str:
 def fig_convergence(df: pd.DataFrame, exp: str, out: Path) -> None:
     """Median and interquartile range of log10 best-so-far regret vs evaluations."""
     df = df.assign(setting=df.apply(setting_key, axis=1))
-    settings = sorted(df["setting"].unique())
+    # Order panels numerically (D=10, 30, 100), not alphabetically (10, 100, 30).
+    order = (df.drop_duplicates("setting")
+               .sort_values(["base", "D", "d_e", "eps"])["setting"])
+    settings = order.tolist()
     ncol = min(3, len(settings))
     nrow = int(np.ceil(len(settings) / ncol))
     fig, axes = plt.subplots(nrow, ncol, figsize=(4.2 * ncol, 3.2 * nrow), squeeze=False)
