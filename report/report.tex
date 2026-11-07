@@ -40,7 +40,7 @@
 \end{enumerate}
 
 {\bf Github Repository:} https://github.com/ssufiya/dsa4211project (all numbers and figures in this report
-are reproduced by the commands in \texttt{readme.md})
+are reproduced by the commands in \texttt{README.md})
 
 %=====================================================================
 \section{Introduction}
@@ -196,7 +196,7 @@ themselves are not harder when rotated. The difference between the two GP varian
 per-input lengthscales as the cause, which is consistent with how ARD works (Section~2): it can only
 switch off directions that coincide with an input. The diagnostics show this directly: in
 \emph{every} aligned setting, the two shortest ARD lengthscales were exactly the two relevant inputs
-(\texttt{relevant\_recovered\_frac}$\,=1.0$), while the irrelevant inputs reached the upper bound of 100.
+(\texttt{relevant\_recovered\_frac}$\,=1.0$), while almost all irrelevant inputs (97\% on average) reached the upper bound of 100.
 On aligned problems this made ARD-GP the best method overall: it beat CMA-ES on 15 of 15 seeds in five
 of the six settings (14 of 15 on Rosenbrock, $D=30$), by 1.2 to 2.5 orders of magnitude. On rotated
 Rosenbrock it was no better than CMA-ES (paired differences $+0.15$, $+0.20$, $+0.26$, all intervals
@@ -263,7 +263,7 @@ methods within each $d_e$ rather than across.
 
 \subsection{Approximately low-dimensional problems}\label{sec:approx}
 Real problems are rarely exactly low-dimensional. Setting $\varepsilon>0$ in \eqref{eq:problem} makes
-the remaining 28 directions matter slightly ($D=30$, $d_e=2$; Figure~\ref{fig:followups}, bottom right). ARD-GP's rotation effect falls from
+the remaining 28 directions matter slightly ($D=30$, $d_e=2$, 10 seeds; Figure~\ref{fig:followups}, bottom right). ARD-GP's rotation effect falls from
 $+1.20\ci{0.76}{1.96}$ at $\varepsilon=0$ to $+0.33\ci{0.15}{0.52}$ at $\varepsilon=0.01$ and about
 $+0.15$ at $\varepsilon\in\{0.1,1\}$, and its aligned advantage over CMA-ES shrinks from about one order
 of magnitude ($-2.17$ vs $-1.14$) to almost none ($-0.04$ vs $0.09$ at $\varepsilon=0.1$). ARD's benefit
@@ -274,7 +274,7 @@ prevents it from switching them off. CMA-ES shows no rotation effect at any $\va
 \noindent\begin{minipage}[t]{0.54\linewidth}
 \vspace{0pt}
 CMA-ES needed under $0.1$\,s per 200-evaluation run at every $D$, whereas the GP-based methods needed
-$18$--$48$\,s (isotropic GP), $20$--$205$\,s (TuRBO) and $61$--$699$\,s (ARD-GP), growing with $D$
+$18$--$48$\,s (isotropic GP), $22$--$195$\,s (TuRBO) and $62$--$680$\,s (ARD-GP), growing with $D$
 (Figure~\ref{fig:time}). ARD-GP thus spends roughly $10^4$ times more computation per evaluation than
 CMA-ES, mostly fitting $D+2$ kernel hyperparameters. This overhead is only worthwhile when each
 objective evaluation is much more expensive and the structure is aligned; on rotated Rosenbrock

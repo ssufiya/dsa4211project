@@ -94,7 +94,7 @@ def run_random(problem, budget: int, n_init: int, seed: int, **_) -> dict:
 
 
 # ---------------------------------------------------------------------------
-# CMA-ES (full and separable)
+# CMA-ES
 # ---------------------------------------------------------------------------
 
 def _cma_diagnostics(es, problem) -> dict:
