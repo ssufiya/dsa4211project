@@ -1,0 +1,15 @@
+# Step 3b: follow-up. What if the "irrelevant" directions matter slightly (eps > 0)?
+name: followup_approx_lowdim
+budget: 200
+n_init: 10
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+problems:
+  base: [rosenbrock]
+  D: [30]
+  d_e: [2]
+  alignment: [aligned, rotated]
+  eps: [0.0, 0.01, 0.1, 1.0]
+methods:
+  - {name: cmaes, sigma0: 0.5}
+  - {name: gp_ard, refit_every: 5}
+  - {name: turbo}

@@ -1,0 +1,9 @@
+method,base,D,d_e,alignment,diag_final_sigma,diag_relevant_variance_fraction,diag_isotropic_reference,diag_condition_number,diag_restarts,diag_gp_fit_time_s,diag_acq_time_s,diag_n_hyperparameter_fits,diag_relevant_recovered_frac,diag_n_expands,diag_n_shrinks,diag_final_length
+cmaes,rosenbrock,10,2,aligned,0.40435702244094995,0.19222476433874022,0.2,1.4585399287386835,0.0,,,,,,,
+cmaes,rosenbrock,10,2,rotated,0.44858524254260224,0.2000704968705445,0.2,1.5357465224584121,0.0,,,,,,,
+gp_ard,rosenbrock,10,2,aligned,,,,,,2.0705840425143833,0.21950477149221115,23.0,1.0,,,
+gp_ard,rosenbrock,10,2,rotated,,,,,,1.1649789815091935,0.16107143901172094,23.0,,,,
+gp_iso,rosenbrock,10,2,aligned,,,,,,1.0252378114782914,0.19592604149511317,23.0,,,,
+gp_iso,rosenbrock,10,2,rotated,,,,,,0.5064609574983479,0.15152945849331445,23.0,,,,
+turbo,rosenbrock,10,2,aligned,,,,,0.0,0.22680377098731697,,,0.5,0.0,1.5,0.6000000000000001
+turbo,rosenbrock,10,2,rotated,,,,,0.0,0.1807880399937858,,,,0.0,1.5,0.30000000000000004

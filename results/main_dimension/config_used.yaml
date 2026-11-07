@@ -1,0 +1,43 @@
+name: main_dimension
+budget: 200
+n_init: 10
+seeds:
+- 0
+- 1
+- 2
+- 3
+- 4
+- 5
+- 6
+- 7
+- 8
+- 9
+- 10
+- 11
+- 12
+- 13
+- 14
+problems:
+  base:
+  - rosenbrock
+  - ackley
+  D:
+  - 10
+  - 30
+  - 100
+  d_e:
+  - 2
+  alignment:
+  - aligned
+  - rotated
+  eps:
+  - 0.0
+methods:
+- name: random
+- name: cmaes
+  sigma0: 0.5
+- name: gp_ard
+  refit_every: 5
+- name: gp_iso
+  refit_every: 5
+- name: turbo

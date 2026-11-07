@@ -1,0 +1,17 @@
+# Step 1: pilot. Check that effects are visible before spending compute.
+name: pilot
+budget: 100
+n_init: 10
+seeds: [0, 1, 2, 3, 4]
+problems:
+  base: [rosenbrock, ackley]
+  D: [10, 30]
+  d_e: [2]
+  alignment: [aligned, rotated]
+  eps: [0.0]
+methods:
+  - {name: random}
+  - {name: cmaes, sigma0: 0.5}
+  - {name: gp_ard}
+  - {name: gp_iso}
+  - {name: turbo}

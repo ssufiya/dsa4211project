@@ -1,0 +1,17 @@
+# Tiny end-to-end check (~1-2 minutes). Not used in the report.
+name: smoke
+budget: 30
+n_init: 8
+seeds: [0, 1]
+problems:
+  base: [rosenbrock]
+  D: [10]
+  d_e: [2]
+  alignment: [aligned, rotated]
+  eps: [0.0]
+methods:
+  - {name: random}
+  - {name: cmaes, sigma0: 0.5}
+  - {name: gp_ard}
+  - {name: gp_iso}
+  - {name: turbo}
