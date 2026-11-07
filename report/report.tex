@@ -1,11 +1,5 @@
-% Built on the course's Overleaf template (Assignment_Template). DRAFT: check every
-% number against results/*/summary_*.csv and results/investigations.txt, rewrite in
-% your group's own words, and replace the TODOs. Limit: 10 pages in total.
 \documentclass[12pt]{article}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%% YOU PROBABLY DON"T NEED TO CHANGE ANYTHING HERE %%%%%%%%%%%%%%%%%%%
 \usepackage[numbers,sort]{natbib}
 \usepackage{amsfonts, amsmath}
 \usepackage{graphicx}
@@ -19,9 +13,6 @@
     citecolor = blue,
     anchorcolor = blue}
 \urlstyle{same}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Additions for this report: tables, red TODO markers, smaller captions.
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{caption}
@@ -40,11 +31,9 @@
 \end{enumerate}
 
 {\bf Github Repository:} https://github.com/ssufiya/dsa4211project (all numbers and figures in this report
-are reproduced by the commands in \texttt{readme.md})
+are reproduced by the commands in \texttt{README.md})
 
-%=====================================================================
 \section{Introduction}
-%=====================================================================
 Black-box optimisation problems such as hyperparameter tuning often have many inputs of which only
 a few matter: Bergstra and Bengio~\cite{bergstra2012random} found that for most of their neural-network tuning tasks
 only a few hyperparameters were important, and that which ones mattered changed from dataset to
@@ -67,9 +56,7 @@ coordinate axes \cite{rasmussen2006gp}. TuRBO \cite{eriksson2019turbo} offers a 
 We report what we found for each method, use diagnostics recorded during the runs to explain it, and
 then investigate the results we did not expect (Section~\ref{sec:invest}).
 
-%=====================================================================
 \section{Background}
-%=====================================================================
 \paragraph{Bayesian optimisation.} BO fits a probabilistic surrogate of the objective, usually a GP,
 and chooses each new point by maximising an acquisition function that trades off a low predicted
 value against high uncertainty \cite{frazier2018tutorial}. We use Expected Improvement
@@ -107,9 +94,7 @@ if it clearly beats this baseline. We follow COCO \cite{hansen2021coco} in measu
 the number of objective evaluations, using many problem instances and runtime distributions over
 target values.
 
-%=====================================================================
 \section{Experimental setup}
-%=====================================================================
 \subsection{Test problems}
 Each problem is defined on the box $\mathcal{X}=[-1,1]^D$ as
 \begin{equation}
@@ -172,9 +157,7 @@ at $D=30$ (median difference $-1.16$ orders of magnitude), although with only 5 
 the 95\% interval $\ci{-1.68}{0.73}$ already included zero. With 15 seeds the
 difference vanished ($+0.17\ci{-0.39}{0.53}$), confirming it was due to chance.
 
-%=====================================================================
 \section{Results}
-%=====================================================================
 \subsection{Effect of rotation (Q1)}
 \begin{figure}[H]
 \centering
@@ -196,7 +179,7 @@ themselves are not harder when rotated. The difference between the two GP varian
 per-input lengthscales as the cause, which is consistent with how ARD works (Section~2): it can only
 switch off directions that coincide with an input. The diagnostics show this directly: in
 \emph{every} aligned setting, the two shortest ARD lengthscales were exactly the two relevant inputs
-(\texttt{relevant\_recovered\_frac}$\,=1.0$), while the irrelevant inputs reached the upper bound of 100.
+(\texttt{relevant\_recovered\_frac}$\,=1.0$), while almost all irrelevant inputs (97\% on average) reached the upper bound of 100.
 On aligned problems this made ARD-GP the best method overall: it beat CMA-ES on 15 of 15 seeds in five
 of the six settings (14 of 15 on Rosenbrock, $D=30$), by 1.2 to 2.5 orders of magnitude. On rotated
 Rosenbrock it was no better than CMA-ES (paired differences $+0.15$, $+0.20$, $+0.26$, all intervals
@@ -214,7 +197,6 @@ Rosenbrock it did not significantly beat random search in any setting. An optimi
 learned the problem's shape cannot be affected by its orientation, so this absence of a rotation
 effect is weak evidence for invariance. Section~\ref{sec:long} therefore gives CMA-ES 3000 instead of
 200 evaluations.
-
 
 \paragraph{Finding 3: TuRBO behaves like ARD-GP on Ackley but not on Rosenbrock.} TuRBO's trust region is
 an axis-aligned box shaped by ARD lengthscales, and on Ackley it is clearly worse when rotated for
@@ -263,7 +245,7 @@ methods within each $d_e$ rather than across.
 
 \subsection{Approximately low-dimensional problems}\label{sec:approx}
 Real problems are rarely exactly low-dimensional. Setting $\varepsilon>0$ in \eqref{eq:problem} makes
-the remaining 28 directions matter slightly ($D=30$, $d_e=2$; Figure~\ref{fig:followups}, bottom right). ARD-GP's rotation effect falls from
+the remaining 28 directions matter slightly ($D=30$, $d_e=2$, 10 seeds; Figure~\ref{fig:followups}, bottom right). ARD-GP's rotation effect falls from
 $+1.20\ci{0.76}{1.96}$ at $\varepsilon=0$ to $+0.33\ci{0.15}{0.52}$ at $\varepsilon=0.01$ and about
 $+0.15$ at $\varepsilon\in\{0.1,1\}$, and its aligned advantage over CMA-ES shrinks from about one order
 of magnitude ($-2.17$ vs $-1.14$) to almost none ($-0.04$ vs $0.09$ at $\varepsilon=0.1$). ARD's benefit
@@ -274,7 +256,7 @@ prevents it from switching them off. CMA-ES shows no rotation effect at any $\va
 \noindent\begin{minipage}[t]{0.54\linewidth}
 \vspace{0pt}
 CMA-ES needed under $0.1$\,s per 200-evaluation run at every $D$, whereas the GP-based methods needed
-$18$--$48$\,s (isotropic GP), $20$--$205$\,s (TuRBO) and $61$--$699$\,s (ARD-GP), growing with $D$
+$18$--$48$\,s (isotropic GP), $22$--$195$\,s (TuRBO) and $62$--$680$\,s (ARD-GP), growing with $D$
 (Figure~\ref{fig:time}). ARD-GP thus spends roughly $10^4$ times more computation per evaluation than
 CMA-ES, mostly fitting $D+2$ kernel hyperparameters. This overhead is only worthwhile when each
 objective evaluation is much more expensive and the structure is aligned; on rotated Rosenbrock
@@ -288,9 +270,7 @@ ARD-GP was no better than CMA-ES.
 \label{fig:time}
 \end{minipage}
 
-%=====================================================================
 \section{Investigating unexpected results}\label{sec:invest}
-%=====================================================================
 \subsection{Why TuRBO does not inherit the rotation effect on Rosenbrock}\label{sec:turbo}
 If TuRBO's sensitivity to rotation on Ackley comes from its ARD-shaped trust region, it should only
 appear when its GP actually identifies the relevant inputs. We checked the final lengthscales of all aligned
@@ -320,9 +300,7 @@ Rosenbrock), although no optimiser adapts to anything. The same geometry may con
 negative rotation effects of CMA-ES and TuRBO on Rosenbrock at $D=100$, and it is why a structure-blind
 control is needed to interpret any rotation effect.
 
-%=====================================================================
 \section{Discussion}
-%=====================================================================
 \paragraph{Q1: Does rotation matter?} Rotation matters only for methods whose notion of relevance is
 tied to the coordinate axes. ARD-GP gives each input its own lengthscale; on aligned problems it
 identified the relevant inputs in every run and gained one to two orders of magnitude, and rotating
@@ -366,9 +344,7 @@ excluded. Evaluations were noise-free, timings come from a single laptop, and re
 $10^{-8}$ are floored in the analysis. The explanations in Section~5 are supported by diagnostics but
 were not tested by intervention.
 
-%=====================================================================
 \section{Conclusion}
-%=====================================================================
 On problems with low effective dimension, GP-BO with an ARD kernel exploits structure that is aligned
 with the input axes and outperforms CMA-ES by one to two orders of magnitude, but rotating the problem,
 or letting the remaining inputs matter slightly, removes this advantage. CMA-ES is unaffected by

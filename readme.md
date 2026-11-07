@@ -19,7 +19,7 @@ Authors: see [authors.md](authors.md). Report: [report/report.tex](report/report
 ## Repository layout
 
 ```
-readme.md                  this file
+README.md                  this file
 authors.md                 names and student numbers
 requirements.txt           Python dependencies
 configs/                   one YAML file per experiment (the source of truth for every setting)
@@ -46,8 +46,8 @@ source .venv/bin/activate            # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-The exact versions used for the reported results are recorded in each
-`results/<exp>/environment.json`. TODO: pin the versions you actually used
+Each `results/<exp>/environment.json` records the Python version, platform and
+NumPy version used for that experiment (other package versions are not recorded). TODO: pin the versions you actually used
 (`pip freeze > requirements-lock.txt`) before submission.
 
 ## Data

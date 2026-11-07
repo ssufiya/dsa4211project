@@ -1,4 +1,4 @@
-# Tiny end-to-end check (~1-2 minutes). Not used in the report.
+# Tiny end-to-end check (about 15 s with 2 workers). Not used in the report.
 name: smoke
 budget: 30
 n_init: 8
